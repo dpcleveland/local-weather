@@ -1,4 +1,18 @@
 $(document).ready(function() {
+
+    // Get user's location
+    var userLatitude = 0;
+    var userLongitude = 0;
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            userLatitude = position.coords.latitude;
+            console.log(userLatitude);
+            userLongitude = position.coords.longitude;
+            console.log(userLongitude);
+        });
+    }
+
     $("#new-quote").on("click", function(){
         $.getJSON("/dynamic/json/quotes.json", function(json) {
             var quoteText = "";
