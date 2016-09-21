@@ -1,5 +1,8 @@
 $(document).ready(function() {
 
+    // OpenWeatherMap API Key
+    var apiKey = 1111111111;
+
     // Get user's location
     var userLatitude = 0;
     var userLongitude = 0;
@@ -12,36 +15,20 @@ $(document).ready(function() {
             console.log(userLongitude);
         });
     }
+    $.getJSON("http://api.openweathermap.org/data/2.5/weather?lat=" + userLatitude + "&lon=" + userLongitude + "&APPID=" + apiKey, function(json) {
 
-    $("#new-quote").on("click", function(){
-        $.getJSON("/dynamic/json/quotes.json", function(json) {
-            var quoteText = "";
-            var attributeText = "";
-            var totalQuotes = json.length;
-            var newBackgroundColor = "";
 
-            function randomQuote() {
-                return Math.floor(Math.random() * (totalQuotes));
-            }
-            var chosenQuote = randomQuote();
-            console.log(chosenQuote);
-
-            json = json.filter(function(val) {
-                return (val.id == chosenQuote);
-            });
-
-            json.forEach(function(val) {
-                quoteText += "<i class='fa fa-quote-left' aria-hidden='true'></i> ";
-                quoteText += val.quote;
-                attributeText += val.attribute;
-                newBackgroundColor = val.color;
-            });
-
-            $("#quote-text").html(quoteText);
-            $("#attribution-text").html(attributeText);
-            $('body').css('background-color', newBackgroundColor);
-            $('.actions button').css('background-color', newBackgroundColor);
-            $('.social ul li').css('background', newBackgroundColor);
+        json.forEach(function(val) {
+            quoteText += "<i class='fa fa-quote-left' aria-hidden='true'></i> ";
+            quoteText += val.quote;
+            attributeText += val.attribute;
+            newBackgroundColor = val.color;
         });
+
+        $("#quote-text").html(quoteText);
+        $("#attribution-text").html(attributeText);
+        $('body').css('background-color', newBackgroundColor);
+        $('.actions button').css('background-color', newBackgroundColor);
+        $('.social ul li').css('background', newBackgroundColor);
     });
 });
