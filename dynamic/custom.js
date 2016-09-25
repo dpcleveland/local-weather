@@ -51,9 +51,13 @@ $(document).ready(function() {
                 // Update Weather Condition
                 $('#user-weather-text').html(userWeatherCondition);
 
-                // Update Weather icon
+                // Update Weather Icon
                 $('#user-weather-symbol img').attr('src', userWeatherIconLink);
 
+                // Change From F to C
+                $('#change-temp-scale').on("click", function(){
+
+                });
             });
         }
         navigator();
