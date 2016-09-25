@@ -23,11 +23,11 @@ $(document).ready(function() {
                 console.log(userCity);
 
                 // Get Temperature & Unit Conversion
-                var userKelvinTemp = json.main.temp;
+                var userKelvinTemp = Math.round(json.main.temp);
                 console.log(userKelvinTemp);
-                var userFahrenheitTemp = userKelvinTemp * (9/5) - 459.67;
+                var userFahrenheitTemp = Math.round(userKelvinTemp * (9/5) - 459.67);
                 console.log(userFahrenheitTemp);
-                var userCelsiusTemp = userKelvinTemp - 273.15;
+                var userCelsiusTemp = Math.round(userKelvinTemp - 273.15);
                 console.log(userCelsiusTemp);
 
                 // Get Weather
