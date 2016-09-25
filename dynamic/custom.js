@@ -36,6 +36,7 @@ $(document).ready(function() {
                 var userWeatherIcon = json.weather[0].icon;
                 console.log(userWeatherIcon);
                 var userWeatherIconLink = "http://openweathermap.org/img/w/" + userWeatherIcon + ".png";
+                console.log(userWeatherIconLink);
 
                 // Update City
                 $('#user-location').html(userCity);
@@ -47,6 +48,7 @@ $(document).ready(function() {
                 $('#user-weather-text').html(userWeatherCondition);
 
                 // Update Weather icon
+                $('#user-weather-symbol img').attr('src', userWeatherIconLink);
 
             });
         }
