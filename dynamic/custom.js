@@ -18,6 +18,10 @@ $(document).ready(function() {
 
             $.getJSON(openWeatherMapURL, function(json) {
 
+                // Get City
+                var userCity = json.name;
+                console.log(userCity);
+
                 // Get Temperature & Unit Conversion
                 var userKelvinTemp = json.main.temp;
                 console.log(userKelvinTemp);
@@ -32,6 +36,17 @@ $(document).ready(function() {
                 var userWeatherIcon = json.weather[0].icon;
                 console.log(userWeatherIcon);
                 var userWeatherIconLink = "http://openweathermap.org/img/w/" + userWeatherIcon + ".png";
+
+                // Update City
+                $('#user-location').html(userCity);
+
+                // Update Temperature
+                $('#user-temperature').html(userFahrenheitTemp);
+
+                // Update Weather Condition
+                $('#user-weather-text').html(userWeatherCondition);
+
+                // Update Weather icon
 
             });
         }
