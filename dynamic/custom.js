@@ -22,6 +22,10 @@ $(document).ready(function() {
                 var userCity = json.name;
                 console.log(userCity);
 
+                // Get Country
+                var userCountry = json.sys.country;
+                console.log(userCountry);
+
                 // Get Temperature & Unit Conversion
                 var userKelvinTemp = Math.round(json.main.temp);
                 console.log(userKelvinTemp);
@@ -39,10 +43,10 @@ $(document).ready(function() {
                 console.log(userWeatherIconLink);
 
                 // Update City
-                $('#user-location').html(userCity);
+                $('#user-location').html(userCity + ', ' + userCountry);
 
                 // Update Temperature
-                $('#user-temperature').html(userFahrenheitTemp);
+                $('#user-temperature').html(userFahrenheitTemp + '&deg;');
 
                 // Update Weather Condition
                 $('#user-weather-text').html(userWeatherCondition);
