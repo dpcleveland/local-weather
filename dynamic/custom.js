@@ -59,12 +59,14 @@ $(document).ready(function() {
 					$('#user-temperature').toggleClass('celcius');
 					$('#user-temperature').toggleClass('fahrenheit');
 
-					if ($(this).hasClass('celcius')) {
-						$('#user-temperature').text(setFahrenheit());
+					if ($('#user-temperature').hasClass('celcius')) {
+						$('#user-temperature').text(setCelcius());
 						return;
 					}
 
-					$('#user-temperature').text(setCelcius());
+					else {
+                        $('#user-temperature').text(setFahrenheit());
+                    }
 				});
 
 				function setCelcius() {
