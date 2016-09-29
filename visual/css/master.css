@@ -1,27 +1,36 @@
 /* General */
+
 body {
-	font-family: 'Open Sans', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-weight: 400;
     text-align: center;
     font-size: 20px;
     color: #ffffff;
     background-color: #222222;
 }
+
 .container-fluid {
     padding: 0;
 }
+
+
 /* Content */
+
 .content {
     margin-top: 100px;
 }
 
+
 /* Helpers */
+
 .center {
     margin-left: auto;
     margin-right: auto;
 }
 
+
 /* Animations */
+
 #user-weather-symbol {
     height: 50px;
     width: 50px;
@@ -35,6 +44,7 @@ body {
     animation-fill-mode: none;
     animation-play-state: running;
 }
+
 @keyframes stretch {
     0% {
         transform: scale(.75);

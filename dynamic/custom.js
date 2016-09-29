@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
-	// OpenWeatherMap API Key
-	var apiKey = "96f6bcd552af365b9711c29cf4e5bdb4";
+    // OpenWeatherMap API Key
+    var apiKey = "96f6bcd552af365b9711c29cf4e5bdb4";
 
     // Setup Global Vars
     var userLatitude, userLongitude, openWeatherMapURL, userCity, userCountry, userKelvinTemp, userFahrenheitTemp, userCelsiusTemp, userWeatherCondition, userWeatherIcon, userWeatherIconLink, isCelcius = false;
@@ -10,10 +10,10 @@ $(document).ready(function() {
         $.getJSON("//ip-api.com/json", function(json, status) {
             if (status == "success") {
                 // Pull user's location from http://ip-api.com/json
-			    userLatitude = json.lat;
-			    console.log('Latitude : ' + userLatitude);
-			    userLongitude = json.lon;
-			    console.log('Longitude: ' + userLongitude);
+                userLatitude = json.lat;
+                console.log('Latitude : ' + userLatitude);
+                userLongitude = json.lon;
+                console.log('Longitude: ' + userLongitude);
                 userCity = json.city;
                 console.log(userCity);
                 userCountry = json.countryCode;
@@ -21,13 +21,13 @@ $(document).ready(function() {
 
                 // Input user location into OpenWeatherMap API URL along with key
                 openWeatherMapURL = "http://api.openweathermap.org/data/2.5/weather?lat=" + userLatitude + "&lon=" + userLongitude + "&APPID=" + apiKey;
-    			console.log(openWeatherMapURL);
+                console.log(openWeatherMapURL);
             } else if (status == "timeout") {
-                alert ("Connection timeout. Please try again later.");
+                alert("Connection timeout. Please try again later.");
             } else if (status == "error" || status == "parseerror") {
-                alert ("System error. Please try again later.");
+                alert("System error. Please try again later.");
             } else {
-                alert ("An error occured");
+                alert("An error occured");
             }
         }).then(getUserWeather);
     }
@@ -51,11 +51,11 @@ $(document).ready(function() {
                 userWeatherIconLink = "http://openweathermap.org/img/w/" + userWeatherIcon + ".png";
                 console.log(userWeatherIconLink);
             } else if (status == "timeout") {
-                alert ("Connection timeout. Please try again later.");
+                alert("Connection timeout. Please try again later.");
             } else if (status == "error" || status == "parseerror") {
-                alert ("System error. Please try again later.");
+                alert("System error. Please try again later.");
             } else {
-                alert ("An error occured");
+                alert("An error occured");
             }
         }).then(changeUserInterface);
     }
