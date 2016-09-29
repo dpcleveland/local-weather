@@ -3,82 +3,69 @@ $(document).ready(function() {
 	// OpenWeatherMap API Key
 	var apiKey = "96f6bcd552af365b9711c29cf4e5bdb4";
 
-	$.getJSON("//ip-api.com/json", function(json) {
-		function navigator() {
+    // Setup Global Vars
+    var userLatitude, userLongitude, openWeatherMapURL, userCity, userCountry, userKelvinTemp, userFahrenheitTemp, userCelsiusTemp, userWeatherCondition, userWeatherIcon, userWeatherIconLink, isCelcius = false;
 
-			// Pull user's location from http://ip-api.com/json
-			var userLatitude = json.lat;
+    function getUserLocation() {
+        $.getJSON("//ip-api.com/json", function(json) {
+            // Pull user's location from http://ip-api.com/json
+			userLatitude = json.lat;
 			console.log('Latitude : ' + userLatitude);
-			var userLongitude = json.lon;
+			userLongitude = json.lon;
 			console.log('Longitude: ' + userLongitude);
+            userCity = json.city;
+            console.log(userCity);
+            userCountry = json.countryCode;
+            console.log(userCountry);
 
-			// Input user location into OpenWeatherMap API URL along with key
-			var openWeatherMapURL = "http://api.openweathermap.org/data/2.5/weather?lat=" + userLatitude + "&lon=" + userLongitude + "&APPID=" + apiKey;
+            // Input user location into OpenWeatherMap API URL along with key
+            openWeatherMapURL = "http://api.openweathermap.org/data/2.5/weather?lat=" + userLatitude + "&lon=" + userLongitude + "&APPID=" + apiKey;
 			console.log(openWeatherMapURL);
+        }).then(getUserWeather);
+    }
 
-			$.getJSON(openWeatherMapURL, function(json) {
+    function getUserWeather() {
+        $.getJSON(openWeatherMapURL, function(json) {
+            // Get Temperature & Unit Conversion
+            userKelvinTemp = Math.round(json.main.temp);
+            console.log(userKelvinTemp);
+            userFahrenheitTemp = Math.round(userKelvinTemp * (9 / 5) - 459.67);
+            console.log(userFahrenheitTemp);
+            userCelsiusTemp = Math.round(userKelvinTemp - 273.15);
+            console.log(userCelsiusTemp);
 
-				// Get City
-				var userCity = json.name;
-				console.log(userCity);
+            // Get Weather
+            userWeatherCondition = json.weather[0].main;
+            console.log(userWeatherCondition);
+            userWeatherIcon = json.weather[0].icon;
+            console.log(userWeatherIcon);
+            userWeatherIconLink = "http://openweathermap.org/img/w/" + userWeatherIcon + ".png";
+            console.log(userWeatherIconLink);
+        }).then(changeUserInterface);
+    }
 
-				// Get Country
-				var userCountry = json.sys.country;
-				console.log(userCountry);
+    function changeUserInterface() {
+        // Update City
+        $('#user-location').text(userCity + ', ' + userCountry);
 
-				// Get Temperature & Unit Conversion
-				var userKelvinTemp = Math.round(json.main.temp);
-				console.log(userKelvinTemp);
-				var userFahrenheitTemp = Math.round(userKelvinTemp * (9 / 5) - 459.67);
-				console.log(userFahrenheitTemp);
-				var userCelsiusTemp = Math.round(userKelvinTemp - 273.15);
-				console.log(userCelsiusTemp);
+        // Update Temperature
+        $('#user-temperature').text(userFahrenheitTemp + '° F');
 
-				// Get Weather
-				var userWeatherCondition = json.weather[0].main;
-				console.log(userWeatherCondition);
-				var userWeatherIcon = json.weather[0].icon;
-				console.log(userWeatherIcon);
-				var userWeatherIconLink = "http://openweathermap.org/img/w/" + userWeatherIcon + ".png";
-				console.log(userWeatherIconLink);
+        // Update Weather Condition
+        $('#user-weather-text').text(userWeatherCondition);
 
-				// Update City
-				$('#user-location').html(userCity + ', ' + userCountry);
+        // Update Weather Icon
+        $('#user-weather-symbol img').attr('src', userWeatherIconLink);
+    }
 
-				// Update Temperature
-				$('#user-temperature').html(userFahrenheitTemp + '° F');
+    function toggleTemp() {
+        $('#user-temperature').text(isCelcius ? (userFahrenheitTemp + '° F') : (userCelsiusTemp + '° C'));
+        $('#toggle').text(isCelcius ? 'Show Celcius' : 'Show Fahrenheit');
 
-				// Update Weather Condition
-				$('#user-weather-text').html(userWeatherCondition);
+        isCelcius = isCelcius ? false : true;
+    }
 
-				// Update Weather Icon
-				$('#user-weather-symbol img').attr('src', userWeatherIconLink);
+    $('#toggle').on('click', toggleTemp);
 
-				// Change From F to C
-				$('#change-temp-scale').on('click', function() {
-					$('#user-temperature').toggleClass('celcius');
-					$('#user-temperature').toggleClass('fahrenheit');
-
-					if ($('#user-temperature').hasClass('celcius')) {
-						$('#user-temperature').text(setCelcius());
-						return;
-					}
-
-					else {
-                        $('#user-temperature').text(setFahrenheit());
-                    }
-				});
-
-				function setCelcius() {
-					return userCelsiusTemp + '° C';
-				};
-
-				function setFahrenheit() {
-					return userFahrenheitTemp + '° F';
-				};
-
-			});
-		}
-		navigator();
-	});
+    getUserLocation();
 });
