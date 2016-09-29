@@ -60,7 +60,6 @@ $(document).ready(function() {
 
     function toggleTemp() {
         $('#user-temperature').text(isCelcius ? (userFahrenheitTemp + '° F') : (userCelsiusTemp + '° C'));
-        $('#toggle').text(isCelcius ? 'Show Celcius' : 'Show Fahrenheit');
 
         isCelcius = isCelcius ? false : true;
     }
